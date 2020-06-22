@@ -10,13 +10,9 @@
 }
 ```
 
-**[News]** The [hands-on tutorial](https://github.com/mit-han-lab/once-for-all/tree/master/tutorial) of OFA is released! 
-
-**[News]** OFA is available via pip! Run **```pip install ofa```** to install the whole OFA codebase. 
-
-**[News]** Fisrt place in the 4th [Low-Power Computer Vision Challenge](https://lpcv.ai/competitions/2019), both classification and detection track.
-
-**[News]** First place in the 3rd [Low-Power Computer Vision Challenge](https://lpcv.ai/competitions/2019), DSP track at ICCV’19 using the Once-for-all Network.
+## News
+- Fisrt place in the 4th [Low-Power Computer Vision Challenge](https://lpcv.ai/competitions/2019), both classification and detection track.
+- First place in the 3rd [Low-Power Computer Vision Challenge](https://lpcv.ai/competitions/2019), DSP track at ICCV’19 using the Once-for-all Network.
 
 ## Train once, specialize for many deployment scenarios
 ![](figures/overview.png)
@@ -35,7 +31,7 @@
 """ OFA Specialized Networks.
 Example: net, image_size = ofa_specialized('flops@595M_top1@80.0_finetune@75', pretrained=True)
 """ 
-from ofa.model_zoo import ofa_specialized
+from model_zoo import ofa_specialized
 net, image_size = ofa_specialized(net_id, pretrained=True)
 ```
 If the above scripts failed to download, you download it manually from [Google Drive](https://drive.google.com/drive/folders/1ez-t_DAHDet2fqe9TZUTJmvrU-AwofAt?usp=sharing) and put them under $HOME/.torch/ofa_specialized/.
@@ -192,7 +188,7 @@ If the above scripts failed to download, you download it manually from [Google D
 """ OFA Networks.
     Example: ofa_network = ofa_net('ofa_mbv3_d234_e346_k357_w1.0', pretrained=True)
 """ 
-from ofa.model_zoo import ofa_net
+from model_zoo import ofa_net
 ofa_network = ofa_net(net_id, pretrained=True)
     
 # Randomly sample sub-networks from OFA network
@@ -226,11 +222,6 @@ horovodrun -np 32 -H <server1_ip>:8,<server2_ip>:8,<server3_ip>:8,<server4_ip>:8
 
 [![Watch the video](figures/video_figure.png)](https://www.youtube.com/watch?v=a_OeT8MXzWI&feature=youtu.be)
 
-## Hands-on Tutorial Video
-
-[![Watch the video](figures/ofa-tutorial.jpg)](https://www.youtube.com/watch?v=wrsid5tvuSM)
-
-
 ## Requirement
 * Python 3.6
 * Pytorch 1.0.0
@@ -245,3 +236,4 @@ horovodrun -np 32 -H <server1_ip>:8,<server2_ip>:8,<server3_ip>:8,<server4_ip>:8
 [AMC: AutoML for Model Compression and Acceleration on Mobile Devices](https://arxiv.org/pdf/1802.03494.pdf) (ECCV’18)
 
 [HAQ: Hardware-Aware Automated Quantization](https://arxiv.org/pdf/1811.08886.pdf)  (CVPR’19, oral)
+# once-for-all

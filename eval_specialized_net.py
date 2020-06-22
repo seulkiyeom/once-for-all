@@ -2,6 +2,9 @@
 # Han Cai, Chuang Gan, Tianzhe Wang, Zhekai Zhang, Song Han
 # International Conference on Learning Representations (ICLR), 2020.
 
+#OFA에서 각각의 platform (Note10, Galaxy S10 등)에 맞춰 잘린 network들
+#network pytorch model zoo에서 다운 받고 valiadation 돌려서 바로 top1 and top5 accuracy 뽑음
+
 import os
 import os.path as osp
 import argparse
@@ -13,8 +16,8 @@ import torch.backends.cudnn as cudnn
 import torch.utils.data
 from torchvision import transforms, datasets
 
-from ofa.utils import AverageMeter, accuracy
-from ofa.model_zoo import ofa_specialized
+from utils import AverageMeter, accuracy
+from model_zoo import ofa_specialized
 
 specialized_network_list = [
     ################# FLOPs #################
@@ -86,13 +89,15 @@ parser.add_argument(
     '--path',
     help='The path of imagenet',
     type=str,
-    default='/dataset/imagenet')
+    default='/home/skyeom/PycharmProject/data/imagenet')
 parser.add_argument(
     '-g',
     '--gpu',
     help='The gpu(s) to use',
     type=str,
-    default='all')
+    default='0,1,2'
+    # default='all'
+)
 parser.add_argument(
     '-b',
     '--batch-size',
@@ -116,7 +121,7 @@ parser.add_argument(
     ' (default: pixel1_lat@143ms_top1@80.1_finetune@75)')
 
 args = parser.parse_args()
-if args.gpu == 'all':
+if args.gpu == 'all': #모두 사용하고 싶으면 사용해라
     device_list = range(torch.cuda.device_count())
     args.gpu = ','.join(str(_) for _ in device_list)
 else:

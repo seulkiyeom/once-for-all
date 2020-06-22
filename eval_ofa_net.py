@@ -2,14 +2,16 @@
 # Han Cai, Chuang Gan, Tianzhe Wang, Zhekai Zhang, Song Han
 # International Conference on Learning Representations (ICLR), 2020.
 
+#OFA network에서 sampling한 subnet를 가지고
+#valiadation 돌려서 바로 top1 and top5 accuracy 뽑음 (easy~)
+
 import os
 import torch
 import argparse
 
-from ofa.imagenet_codebase.data_providers.imagenet import ImagenetDataProvider
-from ofa.imagenet_codebase.run_manager import ImagenetRunConfig
-from ofa.imagenet_codebase.run_manager import RunManager
-from ofa.model_zoo import ofa_net
+from imagenet_codebase.data_providers.imagenet import ImagenetDataProvider
+from imagenet_codebase.run_manager import ImagenetRunConfig, RunManager
+from model_zoo import ofa_net
 
 
 parser = argparse.ArgumentParser()
@@ -18,13 +20,15 @@ parser.add_argument(
     '--path',
     help='The path of imagenet',
     type=str,
-    default='/dataset/imagenet')
+    default='/home/skyeom/PycharmProject/data/imagenet')
 parser.add_argument(
     '-g',
     '--gpu',
     help='The gpu(s) to use',
     type=str,
-    default='all')
+    default='0,1,2'
+    # default = 'all'
+)
 parser.add_argument(
     '-b',
     '--batch-size',
@@ -62,7 +66,7 @@ run_config = ImagenetRunConfig(test_batch_size=args.batch_size, n_worker=args.wo
     you can also manually set the sub-network using: 
         ofa_network.set_active_subnet(ks=7, e=6, d=4) 
 """
-ofa_network.sample_active_subnet()
+ofa_network.sample_active_subnet() #하나의 큰 OFA network 에서 randomly 하게 sub-network를 뽑아냄
 subnet = ofa_network.get_active_subnet(preserve_weight=True)
 
 """ Test sampled subnet 
